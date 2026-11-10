@@ -261,11 +261,11 @@ async function upload(key,f){
   try{
     var x=await api("/api/file?key="+key,"POST",f);
     if(!x.ok){ setMsg(x.status===401?"انتهت الجلسة، أعد الدخول":"تعذّر الرفع"); return; }
-    await load(); setMsg("تم الرفع");
+    LESSONS[key]={pdf:"/api/file?key="+key}; render(); setMsg("تم الرفع");
   }catch(e){ setMsg("تعذّر الرفع"); }
 }
 async function remove(key){
-  try{ var x=await api("/api/file?key="+key,"DELETE"); if(x.ok){ await load(); setMsg("تم الحذف"); } else setMsg("تعذّر الحذف"); }
+  try{ var x=await api("/api/file?key="+key,"DELETE"); if(x.ok){ delete LESSONS[key]; render(); setMsg("تم الحذف"); } else setMsg("تعذّر الحذف"); }
   catch(e){ setMsg("تعذّر الحذف"); }
 }
 $("admBtn").addEventListener("click",function(){ if(ADMIN) return; LOGIN=!LOGIN; renderAdmin(); window.scrollTo(0,0); });
