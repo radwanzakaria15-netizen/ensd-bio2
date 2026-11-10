@@ -25,7 +25,7 @@ export default async (req) => {
                                                                           );
                                                                             }
 
-                                                                              if (!/^\d+$/.test(key)) {
+                                                                              if (!/^\d+-\d+$/.test(key)) {
                                                                                   return new Response("bad key", { status: 400 });
                                                                                     }
 
